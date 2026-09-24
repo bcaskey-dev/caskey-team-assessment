@@ -20,10 +20,10 @@ export default function EmailGate({ onSubmit, onBack, submitting, submitError })
 
   return (
     <div className="card-body">
-      <p className="question-prompt">You've made it through — where should we send your result?</p>
+      <p className="question-prompt">You've made it through — where should we send your Roadmap?</p>
       <p className="gate-copy">
-        Based on your answers, we'll show you the single biggest constraint on your team's
-        production right now, and what to do about it.
+        Based on your answers, we'll show you the single biggest constraint on you as the leader,
+        and on your team's production, plus what to do about each.
       </p>
       <form onSubmit={handleSubmit}>
         <div className="form-row">

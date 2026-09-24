@@ -7,6 +7,10 @@ import EmailGate from './components/EmailGate.jsx';
 import ResultScreen from './components/ResultScreen.jsx';
 
 const TOTAL_STEPS = QUESTIONS.length + 1; // +1 for the email gate step
+const SECTION_TITLE = {
+  leader: 'Part 1 of 2 — You as the Leader',
+  team: 'Part 2 of 2 — Your Team'
+};
 
 export default function App() {
   const [index, setIndex] = useState(0); // which question we're on
@@ -48,8 +52,10 @@ export default function App() {
       answers,
       composite: scored.composite,
       compositeBand: COMPOSITE_BAND(scored.composite),
-      topCategory: scored.topCategory,
-      topScore: scored.topScore,
+      leaderTopCategory: scored.leaderTopCategory,
+      leaderTopScore: scored.leaderTopScore,
+      teamTopCategory: scored.teamTopCategory,
+      teamTopScore: scored.teamTopScore,
       submittedAt: new Date().toISOString(),
       source: 'caskey-team-assessment'
     };
@@ -87,6 +93,7 @@ export default function App() {
             />
             <QuestionCard
               question={currentQuestion}
+              sectionTitle={SECTION_TITLE[currentQuestion.section]}
               onAnswer={handleAnswer}
               onBack={handleBackFromQuestion}
               canBack={index > 0}
@@ -115,11 +122,15 @@ export default function App() {
           <>
             <ProgressHeader
               eyebrow="Caskey Training"
-              title="Your Result"
+              title="Your Roadmap"
               step={TOTAL_STEPS}
               total={TOTAL_STEPS}
             />
-            <ResultScreen topCategory={result.topCategory} name={contact?.name} />
+            <ResultScreen
+              leaderTopCategory={result.leaderTopCategory}
+              teamTopCategory={result.teamTopCategory}
+              name={contact?.name}
+            />
           </>
         )}
       </div>

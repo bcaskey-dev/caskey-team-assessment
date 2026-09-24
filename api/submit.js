@@ -12,10 +12,20 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, answers, composite, compositeBand, topCategory, topScore, submittedAt } =
-    req.body || {};
+  const {
+    name,
+    email,
+    answers,
+    composite,
+    compositeBand,
+    leaderTopCategory,
+    leaderTopScore,
+    teamTopCategory,
+    teamTopScore,
+    submittedAt
+  } = req.body || {};
 
-  if (!name || !email || !topCategory) {
+  if (!name || !email || !leaderTopCategory || !teamTopCategory) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -28,7 +38,8 @@ export default async function handler(req, res) {
     console.warn('ZAPIER_WEBHOOK_URL is not set — assessment submission was not forwarded.', {
       name,
       email,
-      topCategory
+      leaderTopCategory,
+      teamTopCategory
     });
     return res.status(200).json({ ok: true, forwarded: false });
   }
@@ -43,8 +54,10 @@ export default async function handler(req, res) {
         answers,
         composite,
         compositeBand,
-        topCategory,
-        topScore,
+        leaderTopCategory,
+        leaderTopScore,
+        teamTopCategory,
+        teamTopScore,
         submittedAt: submittedAt || new Date().toISOString()
       })
     });
@@ -60,3 +73,4 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true, forwarded: false });
   }
 }
+

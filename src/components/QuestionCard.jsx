@@ -1,6 +1,7 @@
-export default function QuestionCard({ question, onAnswer, onBack, canBack }) {
+export default function QuestionCard({ question, sectionTitle, onAnswer, onBack, canBack }) {
   return (
     <div className="card-body">
+      {sectionTitle && <span className="section-tag">{sectionTitle}</span>}
       <p className="question-prompt">{question.prompt}</p>
       <div className="options" role="radiogroup" aria-label={question.prompt}>
         {question.options.map((opt) => (
